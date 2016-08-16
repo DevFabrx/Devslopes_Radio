@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.fabian.devslopesradio.Fragments.StationsFragment">
+    tools:context="com.example.fabian.devslopesradio.Fragments.StationsFragment"
+    android:padding="10dp">
 
 
     <include layout="@layout/content_stations_recycler"/>

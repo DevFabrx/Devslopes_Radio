@@ -1,6 +1,7 @@
 package com.example.fabian.devslopesradio.Fragments;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.fabian.devslopesradio.Adapters.StationsAdapter;
 import com.example.fabian.devslopesradio.R;
@@ -67,16 +69,31 @@ public class StationsFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_stations);
         recyclerView.setHasFixedSize(true);
 
+
         StationsAdapter adapter;
 
         if (stationType == STATION_TYPE_FEATURED){
             adapter = new StationsAdapter(DataService.getInstance().getFeaturedStations());
+            TextView featuresTextView = (TextView)getActivity().findViewById(R.id.featuresText);
+            TextView featuresTextView_below = (TextView) getActivity().findViewById(R.id.featuresText_below);
+            featuresTextView.setText("It's Monday evening");
+            featuresTextView_below.setText("Play something for...");
+
         } else if (stationType == STATION_TYPE_RECENT){
-            adapter = new StationsAdapter(DataService.getInstance().getRecentStations());
+            adapter = new StationsAdapter(DataService.getInstance().getFeaturedStations());
+            TextView recentTextView = (TextView)getActivity().findViewById(R.id.recentText);
+            TextView recentTextView_below = (TextView) getActivity().findViewById(R.id.recentText_below);
+            recentTextView.setText("Recent Activity");
+            recentTextView_below.setText("Recently played or added");
         } else {
-            adapter = new StationsAdapter(DataService.getInstance().getPartyStations());
+            adapter = new StationsAdapter(DataService.getInstance().getFeaturedStations());
+            TextView bottomTextView = (TextView)getActivity().findViewById(R.id.bottomText);
+            TextView bottomTextView_below = (TextView)getActivity().findViewById(R.id.bottomText_bottom);
+            bottomTextView.setText("This is the bottom line");
+            bottomTextView_below.setText("This is the line beneath the bottom line");
         }
 
+        recyclerView.addItemDecoration(new HorizontalSpaceItemDecorator(30));
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -86,4 +103,18 @@ public class StationsFragment extends Fragment {
         return v;
     }
 
+}
+
+class HorizontalSpaceItemDecorator extends RecyclerView.ItemDecoration {
+    private final int spacer;
+
+    public HorizontalSpaceItemDecorator(int spacer) {
+        this.spacer = spacer;
+    }
+
+    @Override
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        super.getItemOffsets(outRect, view, parent, state);
+        outRect.right = spacer;
+    }
 }

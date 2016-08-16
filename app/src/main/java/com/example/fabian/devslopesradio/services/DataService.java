@@ -18,8 +18,6 @@ public class DataService {
 
     private DataService() {
 
-
-
     }
 
     public ArrayList<Station> getFeaturedStations(){
@@ -29,8 +27,9 @@ public class DataService {
         ArrayList<Station> list = new ArrayList<>();
 
         list.add(new Station("Flight Plan (Tunes for Travel)", "flightplanmusic"));
-        list.add(new Station("Two-Wheeling' (Biking Playlist)", "bicyclemusic"));
+        list.add(new Station("Two-Wheeling (Biking Playlist)", "bicyclemusic"));
         list.add(new Station("Kinds Jams (Music for Children)","kidsmusic"));
+
 
         return list;
     }
