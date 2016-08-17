@@ -32,10 +32,16 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         MainFragment mainFragment = (MainFragment) manager.findFragmentById(R.id.fragment_container);
 
+        if (savedInstanceState != null) {
+            return;
+        }
 
         if (mainFragment == null) {
+
+
             mainFragment = MainFragment.newInstance("bla", "kah");
-            manager.beginTransaction().add(R.id.fragment_container,mainFragment).commit();
+            manager.beginTransaction().replace(R.id.fragment_container,mainFragment).commit();
+
         }
 
 
@@ -44,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadDetailsScreen(Station selectedStation){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DetailsFragment()).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DetailsFragment()).addToBackStack("last").commit();
     }
 
 }

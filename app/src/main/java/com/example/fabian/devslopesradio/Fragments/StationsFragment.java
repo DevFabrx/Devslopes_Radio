@@ -15,6 +15,8 @@ import com.example.fabian.devslopesradio.Adapters.StationsAdapter;
 import com.example.fabian.devslopesradio.R;
 import com.example.fabian.devslopesradio.services.DataService;
 
+import java.util.Calendar;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,12 +74,45 @@ public class StationsFragment extends Fragment {
 
         StationsAdapter adapter;
 
+        Calendar calendar = Calendar.getInstance();
+        int weekDayInt = calendar.get(Calendar.DAY_OF_WEEK);
+        int am_pm_Int = calendar.get(Calendar.HOUR_OF_DAY);
+        String weekDayString;
+        String timeOfDay;
+
+        if (weekDayInt==2){
+            weekDayString="Monday";
+        }else if (weekDayInt == 3){
+            weekDayString="Tuesday";
+        }else if (weekDayInt == 4) {
+            weekDayString = "Wednesday";
+        }else if (weekDayInt == 5) {
+            weekDayString = "Thursday";
+        }else if (weekDayInt == 6) {
+            weekDayString = "Friday";
+        }else if (weekDayInt == 7) {
+            weekDayString = "Saturday";
+        }else {
+            weekDayString = "Sunday";
+        }
+
+
+        if (am_pm_Int>=1&&am_pm_Int<12){
+            timeOfDay = "morning";
+        } else if (am_pm_Int==12){
+            timeOfDay = "midday";
+        } else if (am_pm_Int>12&&am_pm_Int<=18){
+            timeOfDay="afternoon";
+        } else{
+            timeOfDay="night";
+        }
+
         if (stationType == STATION_TYPE_FEATURED){
             adapter = new StationsAdapter(DataService.getInstance().getFeaturedStations());
             TextView featuresTextView = (TextView)getActivity().findViewById(R.id.featuresText);
             TextView featuresTextView_below = (TextView) getActivity().findViewById(R.id.featuresText_below);
-            featuresTextView.setText("It's Monday evening");
-            featuresTextView_below.setText("Play something for...");
+            featuresTextView.setText("It's " + weekDayString + " "+ timeOfDay);
+            featuresTextView_below.setText("Play something for..");
 
         } else if (stationType == STATION_TYPE_RECENT){
             adapter = new StationsAdapter(DataService.getInstance().getFeaturedStations());
@@ -105,16 +140,4 @@ public class StationsFragment extends Fragment {
 
 }
 
-class HorizontalSpaceItemDecorator extends RecyclerView.ItemDecoration {
-    private final int spacer;
 
-    public HorizontalSpaceItemDecorator(int spacer) {
-        this.spacer = spacer;
-    }
-
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        super.getItemOffsets(outRect, view, parent, state);
-        outRect.right = spacer;
-    }
-}
