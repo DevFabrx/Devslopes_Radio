@@ -128,7 +128,7 @@ public class StationsFragment extends Fragment {
             bottomTextView_below.setText("This is the line beneath the bottom line");
         }
 
-        recyclerView.addItemDecoration(new HorizontalSpaceItemDecorator(30));
+        recyclerView.addItemDecoration(new HorizontalSpaceItemDecorator(25));
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
